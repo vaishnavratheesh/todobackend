@@ -6,8 +6,8 @@ const Item = require("../models/Itemtodo");
 router.post("/", async (req, res) => {
     try {
         const newItem = new Item(req.body);
-        await newItem.save();
-        res.status(201).json({ message: "Item created successfully!" });
+        const savedItem = await newItem.save();
+        res.status(201).json(savedItem);
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
