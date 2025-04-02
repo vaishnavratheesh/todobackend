@@ -1,7 +1,12 @@
 const mongoose = require("mongoose");
 
-const NewSchema = new mongoose.Schema({
-    title: { type: String }
+const ItemtodoSchema = new mongoose.Schema({
+    title: { 
+        type: String,
+        required: true,
+        trim: true
+    }
 });
-module.exports = mongoose.model("Itemtodo", NewSchema);
+
+module.exports = mongoose.model("Itemtodo", ItemtodoSchema);
 

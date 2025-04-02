@@ -2,21 +2,22 @@ const express = require("express");
 const router = express.Router();
 const Item = require("../models/Itemtodo");
 
-
-router.post("/", async (req, res) => {
+// This handles GET /api/items
+router.get("/", async (req, res) => {
     try {
-        const newItem = new Item(req.body);
-        await newItem.save();
-        res.status(201).json({ message: "Item created successfully!" });
+        const items = await Item.find();
+        res.status(200).json(items);
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        res.status(500).json({ message: "Error fetching items" });
     }
 });
 
-router.get("/", async (req, res) => {
+// POST route
+router.post("/", async (req, res) => {
     try {
-        const items= await Item.find();
-        res.status(201).json(items);
+        const newItem = new Item(req.body);
+        const savedItem = await newItem.save();
+        res.status(201).json(savedItem);
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
