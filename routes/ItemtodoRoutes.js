@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Item = require("../models/itemtodo");
+const Item = require("../models/Itemtodo");
 
 
 router.post("/", async (req, res) => {
@@ -15,10 +15,12 @@ router.post("/", async (req, res) => {
 
 router.get("/", async (req, res) => {
     try {
-        const items= await Item.find();
-        res.status(201).json(items);
+        const items = await Item.find();
+        console.log("Fetched items:", items);
+        res.status(200).json(items);
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        console.error("Error fetching items:", error);
+        res.status(500).json({ message: "Error fetching items", error: error.message });
     }
 });
 
